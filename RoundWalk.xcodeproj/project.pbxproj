@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4209387D1B0075540029C491 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4209387C1B0075540029C491 /* AppDelegate.swift */; };
+		4209387F1B0075540029C491 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4209387E1B0075540029C491 /* ViewController.swift */; };
+		420938821B0075540029C491 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420938801B0075540029C491 /* Main.storyboard */; };
+		420938841B0075540029C491 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420938831B0075540029C491 /* Images.xcassets */; };
+		420938871B0075540029C491 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420938851B0075540029C491 /* LaunchScreen.xib */; };
+		420938931B0075540029C491 /* RoundWalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420938921B0075540029C491 /* RoundWalkTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4209388D1B0075540029C491 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4209386F1B0075540029C491 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 420938761B0075540029C491;
+			remoteInfo = RoundWalk;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		420938771B0075540029C491 /* RoundWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoundWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4209387B1B0075540029C491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4209387C1B0075540029C491 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4209387E1B0075540029C491 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		420938811B0075540029C491 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		420938831B0075540029C491 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		420938861B0075540029C491 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		4209388C1B0075540029C491 /* RoundWalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoundWalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		420938911B0075540029C491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		420938921B0075540029C491 /* RoundWalkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundWalkTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		420938741B0075540029C491 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		420938891B0075540029C491 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4209386E1B0075540029C491 = {
+			isa = PBXGroup;
+			children = (
+				420938791B0075540029C491 /* RoundWalk */,
+				4209388F1B0075540029C491 /* RoundWalkTests */,
+				420938781B0075540029C491 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		420938781B0075540029C491 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				420938771B0075540029C491 /* RoundWalk.app */,
+				4209388C1B0075540029C491 /* RoundWalkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		420938791B0075540029C491 /* RoundWalk */ = {
+			isa = PBXGroup;
+			children = (
+				4209387C1B0075540029C491 /* AppDelegate.swift */,
+				4209387E1B0075540029C491 /* ViewController.swift */,
+				420938801B0075540029C491 /* Main.storyboard */,
+				420938831B0075540029C491 /* Images.xcassets */,
+				420938851B0075540029C491 /* LaunchScreen.xib */,
+				4209387A1B0075540029C491 /* Supporting Files */,
+			);
+			path = RoundWalk;
+			sourceTree = "<group>";
+		};
+		4209387A1B0075540029C491 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4209387B1B0075540029C491 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4209388F1B0075540029C491 /* RoundWalkTests */ = {
+			isa = PBXGroup;
+			children = (
+				420938921B0075540029C491 /* RoundWalkTests.swift */,
+				420938901B0075540029C491 /* Supporting Files */,
+			);
+			path = RoundWalkTests;
+			sourceTree = "<group>";
+		};
+		420938901B0075540029C491 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				420938911B0075540029C491 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		420938761B0075540029C491 /* RoundWalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 420938961B0075540029C491 /* Build configuration list for PBXNativeTarget "RoundWalk" */;
+			buildPhases = (
+				420938731B0075540029C491 /* Sources */,
+				420938741B0075540029C491 /* Frameworks */,
+				420938751B0075540029C491 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RoundWalk;
+			productName = RoundWalk;
+			productReference = 420938771B0075540029C491 /* RoundWalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4209388B1B0075540029C491 /* RoundWalkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 420938991B0075540029C491 /* Build configuration list for PBXNativeTarget "RoundWalkTests" */;
+			buildPhases = (
+				420938881B0075540029C491 /* Sources */,
+				420938891B0075540029C491 /* Frameworks */,
+				4209388A1B0075540029C491 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4209388E1B0075540029C491 /* PBXTargetDependency */,
+			);
+			name = RoundWalkTests;
+			productName = RoundWalkTests;
+			productReference = 4209388C1B0075540029C491 /* RoundWalkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4209386F1B0075540029C491 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = Daichi.T;
+				TargetAttributes = {
+					420938761B0075540029C491 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					4209388B1B0075540029C491 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 420938761B0075540029C491;
+					};
+				};
+			};
+			buildConfigurationList = 420938721B0075540029C491 /* Build configuration list for PBXProject "RoundWalk" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4209386E1B0075540029C491;
+			productRefGroup = 420938781B0075540029C491 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				420938761B0075540029C491 /* RoundWalk */,
+				4209388B1B0075540029C491 /* RoundWalkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		420938751B0075540029C491 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				420938821B0075540029C491 /* Main.storyboard in Resources */,
+				420938871B0075540029C491 /* LaunchScreen.xib in Resources */,
+				420938841B0075540029C491 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4209388A1B0075540029C491 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		420938731B0075540029C491 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4209387F1B0075540029C491 /* ViewController.swift in Sources */,
+				4209387D1B0075540029C491 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		420938881B0075540029C491 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				420938931B0075540029C491 /* RoundWalkTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4209388E1B0075540029C491 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 420938761B0075540029C491 /* RoundWalk */;
+			targetProxy = 4209388D1B0075540029C491 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		420938801B0075540029C491 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				420938811B0075540029C491 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		420938851B0075540029C491 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				420938861B0075540029C491 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		420938941B0075540029C491 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		420938951B0075540029C491 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		420938971B0075540029C491 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RoundWalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		420938981B0075540029C491 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RoundWalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4209389A1B0075540029C491 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RoundWalkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoundWalk.app/RoundWalk";
+			};
+			name = Debug;
+		};
+		4209389B1B0075540029C491 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RoundWalkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RoundWalk.app/RoundWalk";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		420938721B0075540029C491 /* Build configuration list for PBXProject "RoundWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				420938941B0075540029C491 /* Debug */,
+				420938951B0075540029C491 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		420938961B0075540029C491 /* Build configuration list for PBXNativeTarget "RoundWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				420938971B0075540029C491 /* Debug */,
+				420938981B0075540029C491 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		420938991B0075540029C491 /* Build configuration list for PBXNativeTarget "RoundWalkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4209389A1B0075540029C491 /* Debug */,
+				4209389B1B0075540029C491 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4209386F1B0075540029C491 /* Project object */;
+}
