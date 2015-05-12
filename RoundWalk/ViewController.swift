@@ -11,10 +11,14 @@ import MapKit
 import CoreLocation
 
 class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
-    
+    let apiKey = "AIzaSyAsWaICEUOcyRjz-jMyNzpicDG3O2OtTgs"
     var myLocationManager:CLLocationManager!
     var googleMap : GMSMapView!
-    var options = GMSMarker()
+    var marker = GMSMarker()
+    
+    var session: NSURLSession {
+        return NSURLSession.sharedSession()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +47,10 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         NSLog("\(status)")
         // まだ認証が得られていない場合は、認証ダイアログを表示.
         if status == CLAuthorizationStatus.NotDetermined {
-            println("didChangeAuthorizationStatus:\(status)");
+            NSLog("didChangeAuthorizationStatus:\(status)");
             // まだ承認が得られていない場合は、認証ダイアログを表示.
             self.myLocationManager.requestAlwaysAuthorization()
-            println("requestAlwaysAuthorization");
+            NSLog("requestAlwaysAuthorization");
         }
         
         let lat: CLLocationDegrees = 35.658599
@@ -58,20 +62,28 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         googleMap.camera = camera
         googleMap.myLocationEnabled = true
         
-        var options = GMSMarker()
-        options.position = CLLocationCoordinate2DMake(lat, lon);
-        options.title = "東京タワー";
-        options.snippet = "Tokyo Tower";
-        options.appearAnimation = kGMSMarkerAnimationPop
-        options.map = googleMap
-                
+        var marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake(lat, lon)
+        marker.title = "東京タワー";
+        marker.snippet = "Tokyo Tower";
+        marker.appearAnimation = kGMSMarkerAnimationPop
+        marker.map = googleMap
+        
         self.view.addSubview(googleMap)
         self.view.addSubview(myButton)
     }
     
+    // ボタンイベントのセット.
+    func onClickMyButton(sender: UIButton){
+        // 現在位置の取得を開始.
+        myLocationManager.startUpdatingLocation()
+        NSLog("onClickMyButton")
+    }
+    
+    // 位置情報取得の認証ステータスを取得するときに呼び出される
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
-        println("didChangeAuthorizationStatus");
+        NSLog("didChangeAuthorizationStatus");
         
         // 認証のステータスをログで表示.
         var statusStr = "";
@@ -87,14 +99,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         default:
             statusStr = "etc"
         }
-        println(" CLAuthorizationStatus: \(statusStr)")
-    }
-    
-    // ボタンイベントのセット.
-    func onClickMyButton(sender: UIButton){
-        // 現在位置の取得を開始.
-        myLocationManager.startUpdatingLocation()
-        NSLog("onClickMyButton")
+        NSLog(" CLAuthorizationStatus: \(statusStr)")
     }
     
     
@@ -110,19 +115,67 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         
         var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude:myLastLocation.coordinate.latitude, longitude:myLastLocation.coordinate.longitude)
         var nowLocation :GMSCameraPosition = GMSCameraPosition.cameraWithLatitude(coordinate.latitude, longitude:coordinate.longitude, zoom:17)
-        googleMap.camera = nowLocation
+        //googleMap.camera = nowLocation
         
-        options.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
-        options.title = "現在地";
-        options.snippet = " lat:\(coordinate.latitude)\n lon:\(coordinate.longitude)";
-        options.map = googleMap
+        marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+        marker.title = "現在地";
+        marker.snippet = " lat:\(coordinate.latitude)\n lon:\(coordinate.longitude)";
+        marker.map = googleMap
         
+        var toPlaceCoordinate =  CLLocationCoordinate2DMake(35.658599, 139.745443);
+        
+        self.fetchDirectionsFrom(coordinate, to: toPlaceCoordinate) {
+            optionalRoute in
+            if let encodedRoute = optionalRoute {
+                // 3
+                let path = GMSPath(fromEncodedPath: encodedRoute)
+                let line = GMSPolyline(path: path)
+                
+                var bounds:GMSCoordinateBounds = GMSCoordinateBounds(path: path)
+                var camera:GMSCameraUpdate = GMSCameraUpdate.fitBounds(bounds, withPadding:20)
+                self.googleMap.animateWithCameraUpdate(camera)
+                
+                // 4
+                line.strokeWidth = 4.0
+                line.tappable = true
+                line.map = self.googleMap
+                
+            }
+        }
+        
+
         myLocationManager.stopUpdatingLocation()
     }
     
     // 位置情報取得に失敗した時に呼び出されるデリゲート.
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!){
-        print("error")
+        NSLog("error")
+    }
+    
+    func fetchDirectionsFrom(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, completion: ((String?) -> Void)) -> ()
+    {
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(from.latitude),\(from.longitude)&destination=\(to.latitude),\(to.longitude)&mode=walking"
+        
+        NSLog("urlString: \(urlString)")
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        session.dataTaskWithURL(NSURL(string: urlString)!) {data, response, error in
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            var encodedRoute: String?
+            if let json = NSJSONSerialization.JSONObjectWithData(data, options:nil, error:nil) as? [String:AnyObject] {
+                if let routes = json["routes"] as AnyObject? as? [AnyObject] {
+                    if let route = routes.first as? [String : AnyObject] {
+                        if let polyline = route["overview_polyline"] as AnyObject? as? [String : String] {
+                            if let points = polyline["points"] as AnyObject? as? String {
+                                encodedRoute = points
+                            }
+                        }
+                    }
+                }
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(encodedRoute)
+            }
+        }.resume()
     }
     
 }

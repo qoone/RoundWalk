@@ -10,14 +10,14 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        GMSServices.provideAPIKey("AIzaSyA-VJnAJuo6J5Qzw42Zn3n6Ovwo5rI14Eg")
+        GMSServices.provideAPIKey("AIzaSyAsWaICEUOcyRjz-jMyNzpicDG3O2OtTgs")
         
         let viewController: ViewController = ViewController()
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
