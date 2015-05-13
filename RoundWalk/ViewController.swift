@@ -17,6 +17,8 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
     var marker = GMSMarker()
     var time:Int = 0
     var label:UILabel!
+    var timeLabel:UILabel!
+    var descriptionLabal:UILabel!
     var timeValue:Int = 60;
     var compassValue:Int = 0;
     var session: NSURLSession {
@@ -27,23 +29,22 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         super.viewDidLoad()
         
         // ボタンの生成.
-        let myButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let myButton = UIButton(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
         myButton.backgroundColor = UIColor.orangeColor()
         myButton.layer.masksToBounds = true
-        myButton.setTitle("GET", forState: .Normal)
-        myButton.layer.cornerRadius = 50.0
-        myButton.layer.position = CGPoint(x: self.view.bounds.width - self.view.bounds.width / 6, y:self.view.bounds.height - self.view.bounds.height / 10)
+        myButton.setTitle("ルート\n取得", forState: .Normal)
+        //myButton.sizeToFit()
+        myButton.layer.cornerRadius = 12.5
+        myButton.layer.position = CGPoint(x: self.view.bounds.width - 50, y:self.view.bounds.height - 50)
         myButton.addTarget(self, action: "onClickMyButton:", forControlEvents: .TouchUpInside)
         
         // 現在地の取得.
         myLocationManager = CLLocationManager()
-        
         myLocationManager.delegate = self
         // 取得精度の設定.
         myLocationManager.desiredAccuracy = kCLLocationAccuracyBest
         // 取得頻度の設定.
         myLocationManager.distanceFilter = 100
-        
         // セキュリティ認証のステータスを取得.
         let status = CLLocationManager.authorizationStatus()
         
@@ -61,7 +62,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         let zoom: Float = 17
         let camera: GMSCameraPosition = GMSCameraPosition.cameraWithLatitude(lat, longitude:lon, zoom: zoom);
         
-        googleMap = GMSMapView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
+        googleMap = GMSMapView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height - 120))
         googleMap.camera = camera
         googleMap.myLocationEnabled = true
         /*
@@ -73,41 +74,44 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         marker.map = googleMap
         */
         
-        
-        let sld = UISlider(frame: CGRectMake(self.view.bounds.width / 2 - 300 / 2, self.view.bounds.height / 10, 300, 40))
-        
-        
+        let sld = UISlider(frame: CGRectMake(20, self.view.bounds.height - self.view.bounds.height / 8, 200, 40))
         // 最大値・最小値を指定
         sld.minimumValue = 1
         sld.maximumValue = 120
-        
         // 初期値を指定
         sld.setValue(60, animated: true)
-        
         // 値が変わった時の処理を指定
         sld.addTarget(self, action: "sliderChanged:", forControlEvents: UIControlEvents.ValueChanged)
         
-        // ラベルに値を表示
-        label = UILabel(frame: CGRectMake(sld.frame.height / 2, 0, 100, sld.frame.height))
-        
-        label.center = CGPointMake(self.view.bounds.width / 2 , self.view.bounds.height / 10 + 50)
-
+        // ラベルの座標と大きさを指定
+        label = UILabel(frame: CGRectMake(self.view.bounds.width / 2 + 40, self.view.bounds.height - self.view.bounds.height / 8, 50, sld.frame.height))
         // テキストをスライダーの値に
         label.text = "\(Int(sld.value))分"
         
+        timeLabel = UILabel(frame: CGRectMake(20, self.view.bounds.height - self.view.bounds.height / 12, sld.frame.width, sld.frame.height))
+        // テキストをスライダーの値に
+        timeLabel.text = "ルートの所要時間:"
+        timeLabel.font = UIFont.systemFontOfSize(13)
+        
+        descriptionLabal = UILabel(frame: CGRectMake(20, self.view.bounds.height - 110, self.view.bounds.width - 40, 20))
+        // テキストをスライダーの値に
+        descriptionLabal.text = "散歩したい方向を向いてルートボタンを押してください"
+        descriptionLabal.font = UIFont.systemFontOfSize(12)
+        myLocationManager.startUpdatingHeading()
+
         self.view.addSubview(googleMap)
         self.view.addSubview(myButton)
         self.view.addSubview(label)
+        self.view.addSubview(timeLabel)
+        self.view.addSubview(descriptionLabal)
         self.view.addSubview(sld)
+        
     }
     
     // ボタンイベントのセット.
     func onClickMyButton(sender: UIButton){
         // 現在位置の取得を開始.
-        
-        myLocationManager.startUpdatingHeading()
         myLocationManager.startUpdatingLocation()
-        
         NSLog("onClickMyButton")
     }
     
@@ -140,14 +144,12 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         googleMap.clear()
         NSLog("didUpdateLocations")
 
-        
         // 配列から現在座標を取得.
         var myLocations: NSArray = locations as NSArray
         var myLastLocation: CLLocation = myLocations.lastObject as CLLocation
         
         var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude:myLastLocation.coordinate.latitude, longitude:myLastLocation.coordinate.longitude)
         var nowLocation :GMSCameraPosition = GMSCameraPosition.cameraWithLatitude(coordinate.latitude, longitude:coordinate.longitude, zoom:17)
-        //googleMap.camera = nowLocation
         
         marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
         marker.title = "現在地";
@@ -155,18 +157,14 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         marker.map = googleMap
         
         
+        println("timeValue:\(timeValue * 30)")
+        var toPlaceCoordinate =  calcNewLocationFrom(coordinate, distance:CLLocationDistance(Int(self.timeValue * Int(20 * 1.41))), direction:CLLocationDirection(compassValue))//CLLocationCoordinate2DMake(35.658599, 139.745443);
         
-        var toPlaceCoordinate =  calcNewLocationFrom(coordinate, distance:CLLocationDistance(Int(self.timeValue * 30)), direction:CLLocationDirection(compassValue))//CLLocationCoordinate2DMake(35.658599, 139.745443);
-        
-        self.getRoute(coordinate, to:toPlaceCoordinate, n:1)
-        self.getRoute(toPlaceCoordinate, to:coordinate, n:2)
-        
-        
-        //myLocationManager.stopUpdatingHeading()
+        self.getRoute(toPlaceCoordinate, to:coordinate, n:3)
         myLocationManager.stopUpdatingLocation()
     }
     
-    func getRoute(from:CLLocationCoordinate2D, to:CLLocationCoordinate2D, n:Int) {
+    func getRoute(from:CLLocationCoordinate2D, to:CLLocationCoordinate2D, n:Int = 0) {
         self.fetchDirectionsFrom(from, to:to, n:n) {
             optionalRoute in
             if let encodedRoute = optionalRoute {
@@ -184,49 +182,55 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                 line.map = self.googleMap
                 
             }
-            println(self.time)
+            self.timeLabel.text = "ルートの所要時間:\(Int(ceil(Float(self.time / 60))))分"
+            println("time: \(ceil(Float(self.time / 60)))分")
+            self.time = 0
         }
+        
     }
     // 位置情報取得に失敗した時に呼び出されるデリゲート.
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!){
         NSLog("error")
     }
     
-    func fetchDirectionsFrom(from: CLLocationCoordinate2D, to:CLLocationCoordinate2D, n:Int, completion: ((String?) -> Void)) -> ()
+    func fetchDirectionsFrom(from: CLLocationCoordinate2D, to:CLLocationCoordinate2D, n:Int = 0, completion: ((String?) -> Void)) -> ()
     {
-        var newPosition:CLLocationCoordinate2D!
+        var newPosition1:CLLocationCoordinate2D!
+        var newPosition2:CLLocationCoordinate2D!
+        var s:String!
         
-        if n == 1 {
-            var dir:Int!
-            if (compassValue - 45) >= 0 {
-                dir = compassValue - 45
-            } else {
-                dir = 360 - compassValue - 45
-            }
-            newPosition = calcNewLocationFrom(from, distance:CLLocationDistance(Int(self.timeValue * 20)), direction:CLLocationDirection(dir))
-            
-        } else if n == 2 {
-            var dir:Int!
-            if (compassValue + 45) >= 360 {
-                dir = compassValue + 45 - 360
-            } else {
-                dir = compassValue + 45
-            }
-            newPosition = calcNewLocationFrom(from, distance:CLLocationDistance(Int(self.timeValue * 20)), direction:CLLocationDirection(dir))
+        var dir:Int!
+        if (compassValue - 45) >= 0 {
+            dir = compassValue - 45
+        } else {
+            dir = 360 + compassValue - 45
         }
-        var urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(from.latitude),\(from.longitude)&destination=\(to.latitude),\(to.longitude)&waypoints=\(newPosition.latitude),\(newPosition.longitude)&mode=walking"
+        println("compas n1:\(compassValue)")
+        println("n1:\(dir)")
+        newPosition1 = calcNewLocationFrom(to, distance:CLLocationDistance(Int(self.timeValue * 20)),direction:CLLocationDirection(dir))
         
-
-        /*
-        var urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(from.latitude),\(from.longitude)&destination=\(to.latitude),\(to.longitude)&waypoints=\(latitude),\(longitude)"
+        dir = 0
+        if (compassValue + 135) >= 360 {
+            dir = compassValue + 135 - 360
+        } else {
+            dir = compassValue + 135
+        }
+        println("compas n2:\(compassValue)")
+        println("n2:\(dir)")
         
-        var urlString2 = "\(slatitude),\(slongitude)&mode=walking"
-        */
-        //NSLog("urlString: \(urlString)")
-        //var url:NSURL = NSURL(string:"|\(urlString2)", relativeToURL:NSURL(string: urlString))!
-        var url:NSURL = NSURL(string:urlString)!
+        newPosition2 = calcNewLocationFrom(from, distance:CLLocationDistance(Int(self.timeValue * 20)), direction:CLLocationDirection(dir))
+        
+        var urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(from.latitude),\(from.longitude)&destination=\(from.latitude),\(from.longitude)&waypoints=\(newPosition1.latitude),\(newPosition1.longitude)|\(to.latitude),\(to.longitude)|\(newPosition2.latitude),\(newPosition2.longitude)&mode=walking"
 
-        println("url: \(url)")
+        var url:NSURL = NSURL(string: urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
+        
+        println("encode URL: \(url)")
+        
+        self.markerPosition(from, title:"From")
+        self.markerPosition(to, title:"To")
+        self.markerPosition(newPosition1, title:"\(s) Middle1")
+        self.markerPosition(newPosition2, title:"\(s) Middle2")
+        
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         session.dataTaskWithURL(url) {data, response, error in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -240,18 +244,17 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
                                 encodedRoute = points
                             }
                         }
-                        /*
                         if let legs = route["legs"] as AnyObject? as? [AnyObject] {
-                            if let route2 = legs.first as? [String : AnyObject] {
-                                if let duration = route2["duration"] as AnyObject? as? [String : Int] {
-                                    if let value = duration["value"] as AnyObject? as? Int {
-                                        self.time += value
+                            for var i = 0; i < legs.count; i++ {
+                                if let leg = legs[i] as? [String : AnyObject] {
+                                    if let distance = leg["distance"] as? [String : AnyObject] {
+                                        if let value = distance["value"] as AnyObject? as? Int {
+                                            self.time += value
+                                        }
                                     }
                                 }
                             }
                         }
-                        */
-
                     }
                 }
             }
@@ -261,6 +264,14 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         }.resume()
     }
     
+    func markerPosition(position:CLLocationCoordinate2D, title:String) -> () {
+        var markerPositions = GMSMarker()
+        markerPositions.position = CLLocationCoordinate2DMake(position.latitude, position.longitude);
+        markerPositions.title = "\(title)";
+        markerPositions.snippet = " lat:\(position.latitude)\n lon:\(position.longitude)";
+        markerPositions.map = googleMap
+
+    }
     
     
     /*
