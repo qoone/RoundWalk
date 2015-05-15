@@ -175,7 +175,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
             googleMap.clear()
             
             marker.position = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
-            marker.title = "現在地";
+            marker.title = "出発地点";
             marker.snippet = " lat:\(coordinate.latitude)\n lon:\(coordinate.longitude)";
             marker.map = googleMap
             
@@ -262,7 +262,7 @@ class ViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDel
         
         } else if sender.tag == 2 {
             
-            let alertController = UIAlertController(title: "確認", message: "散歩を終了しますか？", preferredStyle: .ActionSheet)
+            let alertController = UIAlertController(title: "確認", message: "散歩を終了しますか？\nOKを押すと自分が実際に歩いた経路は消えます。", preferredStyle: .ActionSheet)
             let okAction = UIAlertAction(title: "OK", style: .Default) {
                 action in println("Pushed OK")
                 self.myButton.enabled = true
